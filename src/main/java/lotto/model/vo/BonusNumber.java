@@ -1,6 +1,11 @@
 package lotto.model.vo;
 
+import lotto.exception.NotInRangeException;
+
 public class BonusNumber {
+
+    private static final Integer MIN_NUMBER = 1;
+    private static final Integer MAX_NUMBER = 45;
 
     private final Integer number;
 
@@ -11,12 +16,12 @@ public class BonusNumber {
 
     private void validate(Integer number) {
         if (!isInRange(number)) {
-            throw new IllegalArgumentException();
+            throw new NotInRangeException(MIN_NUMBER, MAX_NUMBER);
         }
     }
 
     private boolean isInRange(Integer number) {
-        if (number >= 1 && number <= 45) {
+        if (number >= MIN_NUMBER && number <= MAX_NUMBER) {
             return true;
         }
         return false;

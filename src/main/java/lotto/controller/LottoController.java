@@ -23,6 +23,7 @@ public class LottoController {
         BuyAmount buyAmount = initBuyAmount();
         Lotto winningLotto = initWinningLotto();
         BonusNumber bonusNumber = initBonusNumber(winningLotto.getNumbers());
+        
     }
 
     private BuyAmount initBuyAmount() {
@@ -32,7 +33,7 @@ public class LottoController {
                 InputValidator.validateBuyAmount(buyAmount);
                 return new BuyAmount(InputConverter.convertStringToInteger(buyAmount));
             } catch (IllegalArgumentException e) {
-                // TODO : 에러 메시지 출력
+                outputView.printMessage(e.getMessage());
             }
         }
     }
@@ -44,7 +45,7 @@ public class LottoController {
                 InputValidator.validateWinningNumbers(winningNumbers);
                 return Lotto.createWinningLotto(InputConverter.convertStringToIntegerListByDelimiter(winningNumbers));
             } catch (IllegalArgumentException e) {
-                // TODO : 에러 메시지 출력
+                outputView.printMessage(e.getMessage());
             }
         }
     }
@@ -56,7 +57,7 @@ public class LottoController {
                 InputValidator.validateBonusNumber(bonusNumber, winningNumbers);
                 return new BonusNumber(InputConverter.convertStringToInteger(bonusNumber));
             } catch (IllegalArgumentException e) {
-                // TODO : 에러 메시지 출력
+                outputView.printMessage(e.getMessage());
             }
         }
     }

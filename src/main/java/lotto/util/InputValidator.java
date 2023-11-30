@@ -1,6 +1,9 @@
 package lotto.util;
 
 import java.util.List;
+import lotto.exception.ContainDuplicateNumberException;
+import lotto.exception.EmptyInputException;
+import lotto.exception.NonNumericInputException;
 
 public class InputValidator {
 
@@ -9,28 +12,28 @@ public class InputValidator {
 
     public static void validateBuyAmount(String buyAmount) {
         if (buyAmount.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new EmptyInputException();
         }
         if (!isNumeric(buyAmount)) {
-            throw new IllegalArgumentException();
+            throw new NonNumericInputException();
         }
     }
 
     public static void validateWinningNumbers(String winningNumbers) {
         if (winningNumbers.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new EmptyInputException();
         }
     }
 
     public static void validateBonusNumber(String bonusNumber, List<Integer> winningNumbers) {
         if (bonusNumber.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new EmptyInputException();
         }
         if (!isNumeric(bonusNumber)) {
-            throw new IllegalArgumentException();
+            throw new NonNumericInputException();
         }
         if (winningNumbers.contains(Integer.valueOf(bonusNumber))) {
-            throw new IllegalArgumentException();
+            throw new ContainDuplicateNumberException();
         }
     }
 

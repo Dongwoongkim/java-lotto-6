@@ -1,8 +1,12 @@
 package lotto.model.vo;
 
+import lotto.exception.LessThanMinAmountException;
+import lotto.exception.RemainingChangeException;
+
 public class BuyAmount {
 
     private static final Integer MIN_AMOUNT = 1000;
+
     private final Integer amount;
 
     public BuyAmount(Integer amount) {
@@ -12,15 +16,15 @@ public class BuyAmount {
 
     private void validate(Integer amount) {
         if (isLessThanMinAmount(amount)) {
-            throw new IllegalArgumentException();
+            throw new LessThanMinAmountException(MIN_AMOUNT);
         }
         if (isRemainingChange(amount)) {
-            throw new IllegalArgumentException();
+            throw new RemainingChangeException(MIN_AMOUNT);
         }
     }
 
     private boolean isRemainingChange(Integer amount) {
-        if (amount % 1000 != 0) {
+        if (amount % MIN_AMOUNT != 0) {
             return true;
         }
         return false;
