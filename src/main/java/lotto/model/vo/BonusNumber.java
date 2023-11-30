@@ -26,4 +26,8 @@ public class BonusNumber {
         }
         return false;
     }
+
+    public Integer getNumber() {
+        return number;
+    }
 }

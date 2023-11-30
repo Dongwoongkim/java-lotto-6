@@ -2,10 +2,12 @@ package lotto.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import lotto.model.Lotteries;
 import lotto.model.Lotto;
 import lotto.model.NumberGenerator;
 import lotto.model.RandomNumberGenerator;
+import lotto.model.Rank;
 import lotto.model.vo.BonusNumber;
 import lotto.model.vo.BuyAmount;
 import lotto.model.vo.Ticket;
@@ -35,6 +37,18 @@ public class LottoController {
         BonusNumber bonusNumber = initBonusNumber(winningLotto.getNumbers());
 
         // TODO : winningLotto, bonusNumber와 userLotto 비교하여 결과 생성
+        Map<Rank, Integer> winningResult = buyLotteries.calculateRank(winningLotto, bonusNumber);
+        Double profitRate = initProfitRate(buyAmount, winningResult);
+
+        showStatistic(winningResult, profitRate);
+    }
+
+    private void showStatistic(Map<Rank, Integer> winningResult, Double profitRate) {
+        outputView.printStatistic(winningResult, profitRate);
+    }
+
+    private Double initProfitRate(BuyAmount buyAmount, Map<Rank, Integer> winningResult) {
+        return 0.0;
     }
 
     private void showBuyLottoInfo(Ticket ticket, Lotteries buyLotteries) {
@@ -43,7 +57,6 @@ public class LottoController {
         buyLotteries.getLotteries().forEach(
                 lotto -> outputView.printBuyLottoNumber(lotto.getNumbers())
         );
-        outputView.printLine();
     }
 
     private Ticket initTicket(BuyAmount buyAmount) {

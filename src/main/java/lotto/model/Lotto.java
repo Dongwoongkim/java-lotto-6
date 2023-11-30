@@ -55,6 +55,16 @@ public class Lotto {
         return distinct.size() != numbers.size();
     }
 
+    public Integer countMatchedNumber(Lotto otherLotto) {
+        return Math.toIntExact(numbers.stream()
+                .filter(otherLotto::isContain)
+                .count());
+    }
+
+    public boolean isContain(Integer number) {
+        return numbers.contains(number);
+    }
+
     public List<Integer> getNumbers() {
         return numbers;
     }
