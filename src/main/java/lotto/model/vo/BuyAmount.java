@@ -37,4 +37,8 @@ public class BuyAmount {
     public Integer getPerAmount() {
         return amount / MIN_AMOUNT;
     }
+
+    public Integer getAmount() {
+        return amount;
+    }
 }

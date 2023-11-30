@@ -6,6 +6,7 @@ import java.util.Map;
 import lotto.model.Lotteries;
 import lotto.model.Lotto;
 import lotto.model.NumberGenerator;
+import lotto.model.ProfitRate;
 import lotto.model.RandomNumberGenerator;
 import lotto.model.Rank;
 import lotto.model.vo.BonusNumber;
@@ -36,19 +37,13 @@ public class LottoController {
         Lotto winningLotto = initWinningLotto();
         BonusNumber bonusNumber = initBonusNumber(winningLotto.getNumbers());
 
-        // TODO : winningLotto, bonusNumber와 userLotto 비교하여 결과 생성
         Map<Rank, Integer> winningResult = buyLotteries.calculateRank(winningLotto, bonusNumber);
-        Double profitRate = initProfitRate(buyAmount, winningResult);
-
+        ProfitRate profitRate = ProfitRate.create(winningResult, buyAmount);
         showStatistic(winningResult, profitRate);
     }
 
-    private void showStatistic(Map<Rank, Integer> winningResult, Double profitRate) {
-        outputView.printStatistic(winningResult, profitRate);
-    }
-
-    private Double initProfitRate(BuyAmount buyAmount, Map<Rank, Integer> winningResult) {
-        return 0.0;
+    private void showStatistic(Map<Rank, Integer> winningResult, ProfitRate profitRate) {
+        outputView.printStatistic(winningResult, profitRate.getRate());
     }
 
     private void showBuyLottoInfo(Ticket ticket, Lotteries buyLotteries) {

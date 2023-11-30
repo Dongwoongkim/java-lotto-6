@@ -28,4 +28,16 @@ public enum Rank {
         }
         return NONE;
     }
+
+    public Integer getMatchedCount() {
+        return matchedCount;
+    }
+
+    public boolean isRequiredContainBonusNumber() {
+        return requiredContainBonusNumber;
+    }
+
+    public Long getPrizeMoney() {
+        return prizeMoney;
+    }
 }
