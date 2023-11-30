@@ -24,6 +24,10 @@ public class Lotto {
         return new Lotto(winningNumbers);
     }
 
+    public static Lotto createRandomLotto(NumberGenerator numberGenerator) {
+        return new Lotto(numberGenerator.pickNumbers());
+    }
+
     private void validate(List<Integer> numbers) {
         if (numbers.size() != LOTTO_SIZE) {
             throw new InvalidLottoSizeException(LOTTO_SIZE);

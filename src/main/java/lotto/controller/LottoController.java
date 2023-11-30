@@ -21,9 +21,11 @@ public class LottoController {
 
     public void run() {
         BuyAmount buyAmount = initBuyAmount();
+
         Lotto winningLotto = initWinningLotto();
         BonusNumber bonusNumber = initBonusNumber(winningLotto.getNumbers());
-        
+
+        // TODO : winningLotto, bonusNumber와 userLotto 비교하여 결과 생성
     }
 
     private BuyAmount initBuyAmount() {
