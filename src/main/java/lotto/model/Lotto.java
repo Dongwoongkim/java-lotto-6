@@ -25,7 +25,8 @@ public class Lotto {
     }
 
     public static Lotto createRandomLotto(NumberGenerator numberGenerator) {
-        return new Lotto(numberGenerator.pickNumbers());
+        List<Integer> pickedNumbers = numberGenerator.pickNumbers();
+        return new Lotto(pickedNumbers);
     }
 
     private void validate(List<Integer> numbers) {

@@ -1,9 +1,14 @@
 package lotto.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import lotto.model.Lotteries;
 import lotto.model.Lotto;
+import lotto.model.NumberGenerator;
+import lotto.model.RandomNumberGenerator;
 import lotto.model.vo.BonusNumber;
 import lotto.model.vo.BuyAmount;
+import lotto.model.vo.Ticket;
 import lotto.util.InputConverter;
 import lotto.util.InputValidator;
 import lotto.view.InputView;
@@ -21,12 +26,39 @@ public class LottoController {
 
     public void run() {
         BuyAmount buyAmount = initBuyAmount();
+        Ticket ticket = initTicket(buyAmount);
+        Lotteries buyLotteries = initBuyLotteries(ticket, new RandomNumberGenerator());
+
+        showBuyLottoInfo(ticket, buyLotteries);
 
         Lotto winningLotto = initWinningLotto();
         BonusNumber bonusNumber = initBonusNumber(winningLotto.getNumbers());
 
         // TODO : winningLotto, bonusNumber와 userLotto 비교하여 결과 생성
     }
+
+    private void showBuyLottoInfo(Ticket ticket, Lotteries buyLotteries) {
+        outputView.printTicketAmount(ticket.getQuantity());
+
+        buyLotteries.getLotteries().forEach(
+                lotto -> outputView.printBuyLottoNumber(lotto.getNumbers())
+        );
+        outputView.printLine();
+    }
+
+    private Ticket initTicket(BuyAmount buyAmount) {
+        return new Ticket(buyAmount.getPerAmount());
+    }
+
+    private Lotteries initBuyLotteries(Ticket ticket, NumberGenerator numberGenerator) {
+        List<Lotto> lotteries = new ArrayList<>();
+        for (int count = 0; count < ticket.getQuantity(); count++) {
+            Lotto randomLotto = Lotto.createRandomLotto(numberGenerator);
+            lotteries.add(randomLotto);
+        }
+        return Lotteries.createLotteries(lotteries);
+    }
+
 
     private BuyAmount initBuyAmount() {
         while (true) {

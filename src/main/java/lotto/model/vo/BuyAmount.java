@@ -33,4 +33,8 @@ public class BuyAmount {
     private boolean isLessThanMinAmount(Integer amount) {
         return amount < MIN_AMOUNT;
     }
+
+    public Integer getPerAmount() {
+        return amount / MIN_AMOUNT;
+    }
 }
